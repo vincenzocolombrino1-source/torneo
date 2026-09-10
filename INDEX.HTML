@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="it" class="h-full bg-slate-900 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo della Sostenibilità - I.C.S. G. Falcone Volla</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        ecoTeal: '#0d9488',
+                        ecoYellow: '#eab308'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Outfit', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- html2canvas per esportazione immagini -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Canvas Confetti per festeggiamenti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg-main: #020617;
+            --card-bg: rgba(30, 41, 59, 0.75);
+            --glow-color: rgba(34, 197, 94, 0.4);
+            --border-color: rgba(34, 197, 94, 0.3);
+            --accent-primary: #22c55e;
+            --accent-light: #4ade80;
+            --accent-text: #86efac;
+            --accent-badge-bg: rgba(34, 197, 94, 0.2);
+            --accent-gradient: linear-gradient(135deg, #10b981, #059669);
+            --hero-bg: linear-gradient(135deg, rgba(2, 6, 23, 0.95), rgba(6, 78, 59, 0.5), rgba(2, 6, 23, 0.95));
+            --header-bg: rgba(15, 23, 42, 0.9);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--accent-primary, #16a34a); border-radius: 9999px; }
+        .glass-panel {
+            background: var(--card-bg, rgba(30, 41, 59, 0.75));
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        body {
+            background-color: var(--bg-main, #020617) !important;
+            transition: background-color 0.4s ease;
+        }
+        .glow-green { box-shadow: 0 0 25px -5px var(--glow-color, rgba(34, 197, 94, 0.4)); }
+        
+        /* Dynamic Theme Utility Classes */
+        .theme-accent-bg { background: var(--accent-gradient) !important; }
+        .theme-accent-text { color: var(--accent-light) !important; }
+        .theme-accent-border { border-color: var(--border-color) !important; }
+        .theme-hero-card { background: var(--hero-bg) !important; border-color: var(--border-color) !important; transition: background 0.4s ease, border-color 0.4s ease; }
+        .theme-header { background: var(--header-bg) !important; border-color: var(--border-color) !important; transition: background 0.4s ease; }
+        .theme-badge { background: var(--accent-badge-bg) !important; color: var(--accent-light) !important; border-color: var(--border-color) !important; }
+        .theme-active-nav { color: var(--accent-light) !important; }
+    </style>
+</head>
+<body class="h-full bg-slate-950 font-sans text-slate-100 antialiased flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Header App -->
+    <header class="sticky top-0 z-40 theme-header backdrop-blur-md border-b px-4 py-3">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
+            <!-- Logo e Titolo -->
+            <button onclick="navigateTo('home')" class="flex items-center space-x-3 text-left focus:outline-none group">
+                <img src="logo-ics-falcone-2.jpg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/100x100/10b981/ffffff?text=ICS+Falcone';" 
+                     alt="Logo ICS Falcone" 
+                     class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 theme-accent-border object-cover shadow-md group-hover:scale-105 transition-transform shrink-0">
+                <div>
+                    <h1 class="font-heading text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-1.5">
+                        <span class="theme-accent-text">TORNEO</span> SOSTENIBILITÀ
+                    </h1>
+                    <p class="text-[10px] sm:text-xs text-slate-400 font-medium truncate max-w-[180px] sm:max-w-none">
+                        I.C.S. "G. Falcone" - Volla (NA)
+                    </p>
+                </div>
+            </button>
+
+            <!-- Controlli Audio & Regolamento Header -->
+            <div class="flex items-center space-x-2">
+                <!-- Selettore Musica -->
+                <div class="relative flex items-center bg-slate-800/80 rounded-full px-2 py-1 border border-slate-700">
+                    <button id="bgMusicToggle" onclick="toggleBgMusic()" class="theme-accent-text hover:opacity-80 p-1 rounded-full transition" title="Attiva/Disattiva Musica">
+                        <i class="fa-solid fa-music text-sm" id="musicIcon"></i>
+                    </button>
+                    <select id="musicStyleSelect" onchange="changeMusicStyle(this.value)" class="bg-transparent text-xs text-slate-300 border-none focus:outline-none cursor-pointer pr-1">
+                        <option value="fun" class="bg-slate-900 text-white">🎉 Divertente</option>
+                        <option value="adventure" class="bg-slate-900 text-white">🚀 Avventurosa</option>
+                        <option value="relax" class="bg-slate-900 text-white">🍃 Eco-Relax</option>
+                    </select>
+                </div>
+
+                <!-- Pulsante Personalizza Colori e Tema -->
+                <button onclick="openModal('themeModal')" class="theme-badge font-semibold text-xs sm:text-sm px-3 py-1.5 rounded-full transition flex items-center gap-1.5 border" title="Personalizza Colori e Tema">
+                    <i class="fa-solid fa-palette"></i>
+                    <span class="hidden sm:inline">Temi</span>
+                </button>
+
+                <!-- Pulsante Regolamento -->
+                <button onclick="openModal('rulesModal')" class="bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-full transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="hidden sm:inline">Regolamento</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenitore Principale delle Viste -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 my-2">
+        
+        <!-- VISTA 1: HOME PAGE COVER -->
+        <section id="viewHome" class="space-y-8 animate-fadeIn">
+            <div class="relative rounded-3xl overflow-hidden glass-panel theme-hero-card border-2 shadow-2xl p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                
+                <!-- Vibrant Background Glow Effects -->
+                <div class="absolute -top-20 -left-20 w-80 h-80 rounded-full blur-3xl pointer-events-none" style="background: var(--glow-color, rgba(34, 197, 94, 0.3));"></div>
+                <div class="absolute -bottom-20 -right-20 w-80 h-80 rounded-full blur-3xl pointer-events-none" style="background: var(--glow-color, rgba(245, 158, 11, 0.3));"></div>
+
+                <!-- Testo Hero -->
+                <div class="space-y-6 text-center lg:text-left z-10 max-w-xl">
+                    <div class="inline-flex items-center space-x-2 theme-badge px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md border">
+                        <span class="animate-bounce">🌱</span>
+                        <span>Edizione Scolastica 2026 • Gioco a Punti</span>
+                        <span class="animate-bounce">🏆</span>
+                    </div>
+
+                    <h2 class="font-heading text-4xl sm:text-6xl font-black text-white leading-none tracking-tight">
+                        TORNEO DELLA <br>
+                        <span class="theme-accent-text filter drop-shadow-lg">
+                            SOSTENIBILITÀ
+                        </span> 🌿✨
+                    </h2>
+
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-medium">
+                        Unisciti alla sfida per rendere la nostra scuola più verde! Guadagna punti per la tua classe utilizzando borracce, riciclando la carta e mantenendo le aule pulite ed ordinate.
+                    </p>
+
+                    <!-- Fun Eco Action Preview Cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                        <div class="bg-slate-900/90 border border-cyan-500/40 p-2.5 rounded-2xl text-center shadow-lg hover:scale-105 transition-transform">
+                            <span class="text-2xl">💧</span>
+                            <p class="text-[11px] font-bold text-cyan-300 mt-1">Borraccia</p>
+                            <span class="text-[10px] font-black bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full">+10 PTS</span>
+                        </div>
+                        <div class="bg-slate-900/90 border theme-accent-border p-2.5 rounded-2xl text-center shadow-lg hover:scale-105 transition-transform">
+                            <span class="text-2xl">📄</span>
+                            <p class="text-[11px] font-bold theme-accent-text mt-1">Carta Riusata</p>
+                            <span class="text-[10px] font-black theme-badge px-2 py-0.5 rounded-full">+2 PTS</span>
+                        </div>
+                        <div class="bg-slate-900/90 border border-amber-500/40 p-2.5 rounded-2xl text-center shadow-lg hover:scale-105 transition-transform">
+                            <span class="text-2xl">🧹</span>
+                            <p class="text-[11px] font-bold text-amber-300 mt-1">Aula Pulita</p>
+                            <span class="text-[10px] font-black bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full">+50 PTS</span>
+                        </div>
+                        <div class="bg-slate-900/90 border border-purple-500/40 p-2.5 rounded-2xl text-center shadow-lg hover:scale-105 transition-transform">
+                            <span class="text-2xl">🎓</span>
+                            <p class="text-[11px] font-bold text-purple-300 mt-1">Eco Lezione</p>
+                            <span class="text-[10px] font-black bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">+30 PTS</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottoni d'Azione -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-3">
+                        <button onclick="navigateTo('wizard')" class="theme-accent-bg text-slate-950 font-heading font-black text-base px-7 py-4 rounded-2xl shadow-xl glow-green hover:scale-105 transition-all flex items-center space-x-2 border-2 border-white/20">
+                            <span>🚀 PARTECIPA ORA!</span>
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </button>
+                        <button onclick="navigateTo('leaderboard')" class="bg-slate-900/90 hover:bg-slate-800 text-white border-2 theme-accent-border font-heading font-bold text-base px-6 py-4 rounded-2xl hover:scale-105 transition-all flex items-center space-x-2 shadow-lg">
+                            <i class="fa-solid fa-trophy text-amber-400 text-lg"></i>
+                            <span>VEDI CLASSIFICA</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Illustrazione Eco-Game Dinamica -->
+                <div class="relative z-10 shrink-0 text-center flex justify-center items-center py-4">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
+                        <div class="absolute -top-2 left-2 theme-accent-bg text-slate-950 font-black text-xs px-3 py-1.5 rounded-full shadow-lg border border-white/30 animate-bounce">
+                            🌱 +100% Verde
+                        </div>
+                        <div class="absolute bottom-4 -right-2 bg-amber-400 text-slate-950 font-black text-xs px-3 py-1.5 rounded-full shadow-lg border border-amber-100 animate-pulse">
+                            ⚡ Sfida la tua Scuola!
+                        </div>
+
+                        <!-- Central Game Trophy Visual -->
+                        <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-3xl theme-accent-bg p-1 shadow-2xl flex items-center justify-center transform hover:rotate-2 transition-transform">
+                            <div class="w-full h-full bg-slate-950/90 rounded-[22px] flex flex-col items-center justify-center p-6 space-y-3 border theme-accent-border">
+                                <div class="relative">
+                                    <span class="text-6xl sm:text-7xl filter drop-shadow-md">🏆</span>
+                                    <span class="absolute -top-2 -right-2 text-3xl animate-spin" style="animation-duration: 6s;">🌍</span>
+                                </div>
+                                <div class="text-center">
+                                    <p class="font-heading font-black text-amber-300 text-lg tracking-wider uppercase">Campionato Eco</p>
+                                    <p class="text-xs theme-accent-text font-bold">I.C.S. G. Falcone</p>
+                                </div>
+                                <div class="flex items-center justify-center space-x-1.5 theme-badge px-3 py-1 rounded-full border">
+                                    <span class="w-2.0 h-2.0 rounded-full bg-emerald-400 animate-ping"></span>
+                                    <span class="text-[11px] font-bold theme-accent-text">Torneo Attivo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA 2: INSERIMENTO REPORT (WIZARD PASSAGGI) -->
+        <section id="viewWizard" class="hidden max-w-3xl mx-auto space-y-6">
+            
+            <!-- Header Wizard -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="font-heading text-2xl font-black text-white">Nuova Rilevazione Classe</h2>
+                    <p class="text-xs text-slate-400">Compila i dati ecologici della settimana per calcolare il punteggio.</p>
+                </div>
+                <button onclick="navigateTo('home')" class="text-slate-400 hover:text-white text-xs bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
+                    Annulla
+                </button>
+            </div>
+
+            <!-- Indicatori Passi -->
+            <div class="flex justify-between items-center bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                <div id="stepIndicator1" class="flex-1 text-center py-1 text-xs font-bold text-emerald-400 border-b-2 border-emerald-400">
+                    1. Data e Periodo
+                </div>
+                <div id="stepIndicator2" class="flex-1 text-center py-1 text-xs font-bold text-slate-500 border-b-2 border-slate-800">
+                    2. Classe e Alunni
+                </div>
+                <div id="stepIndicator3" class="flex-1 text-center py-1 text-xs font-bold text-slate-500 border-b-2 border-slate-800">
+                    3. Azioni Eco
+                </div>
+            </div>
+
+            <!-- Modulo Form -->
+            <form id="wizardForm" onsubmit="handleWizardSubmit(event)" class="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 border border-slate-800">
+                
+                <!-- PASSO 1: Data e Settimana -->
+                <div id="step1" class="space-y-4">
+                    <h3 class="font-heading font-bold theme-accent-text text-lg border-b border-slate-800 pb-2">
+                        Passo 1: Selezione Settimana e Data
+                    </h3>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Settimana del Torneo</label>
+                        <select id="reportSettimana" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none">
+                            <option value="1">Settimana 1</option>
+                            <option value="2">Settimana 2</option>
+                            <option value="3">Settimana 3</option>
+                            <option value="4">Settimana 4</option>
+                            <option value="5">Settimana 5</option>
+                            <option value="6">Settimana 6</option>
+                            <option value="7">Settimana 7</option>
+                            <option value="8">Settimana 8</option>
+                            <option value="9">Settimana 9</option>
+                            <option value="10">Settimana 10</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Data della Rilevazione</label>
+                        <input type="date" id="reportData" style="color-scheme: dark;" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="pt-4 flex justify-end">
+                        <button type="button" onclick="goToStep(2)" class="theme-accent-bg text-slate-950 font-bold px-6 py-2.5 rounded-xl transition">
+                            Avanti <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASSO 2: Dettagli Classe -->
+                <div id="step2" class="hidden space-y-4">
+                    <h3 class="font-heading font-bold theme-accent-text text-lg border-b border-slate-800 pb-2">
+                        Passo 2: Ordine di Scuola e Classe
+                    </h3>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Ordine di Scuola</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" id="btnPrimaria" onclick="selectSchoolType('Primaria')" class="p-3 rounded-xl border theme-accent-border theme-badge font-bold text-xs sm:text-sm text-center">
+                                Scuola Primaria
+                            </button>
+                            <button type="button" id="btnSec" onclick="selectSchoolType('Sec. 1° Grado')" class="p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs sm:text-sm text-center">
+                                Sec. 1° Grado
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Anno/Anno di Corso</label>
+                            <select id="reportAnno" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none">
+                                <option value="1">1ª Classe</option>
+                                <option value="2">2ª Classe</option>
+                                <option value="3">3ª Classe</option>
+                                <option value="4" id="optAnno4">4ª Classe</option>
+                                <option value="5" id="optAnno5">5ª Classe</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Sezione</label>
+                            <select id="reportSezione" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none">
+                                <option value="A">Sez. A</option>
+                                <option value="B">Sez. B</option>
+                                <option value="C">Sez. C</option>
+                                <option value="D">Sez. D</option>
+                                <option value="E">Sez. E</option>
+                                <option value="F">Sez. F</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                            Numero Alunni Presenti (Oggi)
+                        </label>
+                        <input type="number" id="reportAlunni" min="1" max="35" value="20" oninput="updateCalculations()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="pt-4 flex justify-between">
+                        <button type="button" onclick="goToStep(1)" class="bg-slate-800 text-slate-300 px-5 py-2.5 rounded-xl font-semibold">
+                            Indietro
+                        </button>
+                        <button type="button" onclick="goToStep(3)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl transition">
+                            Avanti <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASSO 3: Indicatori di Sostenibilità -->
+                <div id="step3" class="hidden space-y-5">
+                    <h3 class="font-heading font-bold text-emerald-400 text-lg border-b border-slate-800 pb-2">
+                        Passo 3: Azioni e Indicatori Ecologici
+                    </h3>
+
+                    <!-- Conteggio Borracce -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-bottle-water text-cyan-400 text-lg"></i>
+                                Alunni con Borraccia
+                            </label>
+                            <span id="valBorracceText" class="text-sm font-black text-cyan-400">15 / 20</span>
+                        </div>
+                        <input type="range" id="reportBorracce" min="0" max="20" value="15" oninput="updateCalculations()" class="w-full accent-cyan-400 cursor-pointer">
+                        <p class="text-[11px] text-slate-400">+10 Punti per ogni alunno con borraccia riutilizzabile.</p>
+                    </div>
+
+                    <!-- Fogli Riciclati -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-recycle text-emerald-400 text-lg"></i>
+                                Fogli di Carta Riusati/Riciclati
+                            </label>
+                            <span id="valFogliText" class="text-sm font-black text-emerald-400">10 fogli</span>
+                        </div>
+                        <input type="range" id="reportFogli" min="0" max="50" value="10" oninput="updateCalculations()" class="w-full accent-emerald-400 cursor-pointer">
+                        <p class="text-[11px] text-slate-400">+2 Punti per ogni foglio di carta recuperato o fronte-retro.</p>
+                    </div>
+
+                    <!-- Toggle Ordine e Pulizia -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-broom text-amber-400 text-lg"></i>
+                                Aula Pulita e in Ordine
+                            </p>
+                            <p class="text-[11px] text-slate-400">Raccolta differenziata corretta, banchi e pavimento puliti (+50 Punti).</p>
+                        </div>
+                        <input type="checkbox" id="reportPulizia" onchange="updateCalculations()" class="w-6 h-6 accent-emerald-500 rounded cursor-pointer" checked>
+                    </div>
+
+                    <!-- Toggle Bonus Docente -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user text-purple-400 text-lg"></i>
+                                Bonus Lezione Sostenibile
+                            </p>
+                            <p class="text-[11px] text-slate-400">Attività speciale/lezione incentrata sull'ambiente (+30 Punti).</p>
+                        </div>
+                        <input type="checkbox" id="reportBonusDocente" onchange="updateCalculations()" class="w-6 h-6 accent-emerald-500 rounded cursor-pointer">
+                    </div>
+
+                    <!-- Live Anteprima Punteggio e CO2 -->
+                    <div class="glass-panel p-5 rounded-2xl border theme-accent-border text-center space-y-2 glow-green">
+                        <p class="text-xs theme-accent-text font-semibold uppercase tracking-wider">Punteggio e Impatto Stimato</p>
+                        <div class="text-4xl font-heading font-black text-white" id="liveScoreTotal">220 PTS</div>
+                        <div class="flex justify-center items-center space-x-6 pt-2 text-xs text-slate-300">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-cloud-arrow-down theme-accent-text"></i> <strong id="liveCo2" class="text-white">1.8 kg</strong> CO₂ evitati</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-tree theme-accent-text"></i> <strong id="liveAlberi" class="text-white">0.1</strong> alberi eq.</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex justify-between">
+                        <button type="button" onclick="goToStep(2)" class="bg-slate-800 text-slate-300 px-5 py-2.5 rounded-xl font-semibold">
+                            Indietro
+                        </button>
+                        <button type="submit" class="theme-accent-bg text-slate-950 font-heading font-black px-8 py-3 rounded-xl shadow-lg transition">
+                            SALVA E CONFERMA <i class="fa-solid fa-check ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- VISTA 3: CLASSIFICA GENERALE -->
+        <section id="viewLeaderboard" class="hidden space-y-6">
+            
+            <!-- Banner Statistiche Globali Scuola -->
+            <div class="glass-panel p-6 rounded-3xl border theme-accent-border flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <h2 class="font-heading text-2xl font-black text-white">Classifica Torneo</h2>
+                    <p class="text-xs text-slate-300">Risultati aggiornati in base alle rilevazioni inviate dalle classi esaminee.</p>
+                </div>
+
+                <div class="flex flex-wrap gap-4 text-center">
+                    <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-2xl min-w-[110px]">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">CO₂ Risparmiata</p>
+                        <p class="text-lg font-heading font-black theme-accent-text" id="totalCo2School">0 kg</p>
+                    </div>
+                    <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-2xl min-w-[110px]">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Alberi Salvati</p>
+                        <p class="text-lg font-heading font-black theme-accent-text" id="totalTreesSchool">0.0</p>
+                    </div>
+                    <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-2xl min-w-[110px]">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Report Inseriti</p>
+                        <p class="text-lg font-heading font-black theme-accent-text" id="totalReportsCount">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pulsanti di Azione Rapida Classifica -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center space-x-2">
+                    <button onclick="navigateTo('wizard')" class="theme-accent-bg text-slate-950 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Inserisci Nuova Classe</span>
+                    </button>
+                    <button onclick="downloadLeaderboardImage()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Scarica Classifica (PNG)</span>
+                    </button>
+                </div>
+
+                <button onclick="navigateTo('home')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl border border-slate-700 transition flex items-center gap-2">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Ritorna all'Inizio</span>
+                </button>
+            </div>
+
+            <!-- Filtri della Classifica -->
+            <div class="flex flex-wrap items-center justify-between gap-4 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+                <!-- Filtro Scuola -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs text-slate-400 font-bold">Scuola:</span>
+                    <button id="filterAllScuola" onclick="setLeaderboardFilter('scuola', 'ALL')" class="px-3 py-1.5 text-xs rounded-lg font-bold theme-accent-bg text-slate-950">Tutte</button>
+                    <button id="filterPrimaria" onclick="setLeaderboardFilter('scuola', 'Primaria')" class="px-3 py-1.5 text-xs rounded-lg font-bold bg-slate-800 text-slate-300">Primaria</button>
+                    <button id="filterSec" onclick="setLeaderboardFilter('scuola', 'Sec. 1° Grado')" class="px-3 py-1.5 text-xs rounded-lg font-bold bg-slate-800 text-slate-300">Sec. 1° Grado</button>
+                </div>
+
+                <!-- Filtro Settimana -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs text-slate-400 font-bold">Settimana:</span>
+                    <select id="leaderboardWeekFilter" onchange="setLeaderboardFilter('week', this.value)" class="bg-slate-950 text-xs text-white border border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none">
+                        <option value="ALL">Tutte le Settimane (Totale)</option>
+                        <option value="1">Settimana 1</option>
+                        <option value="2">Settimana 2</option>
+                        <option value="3">Settimana 3</option>
+                        <option value="4">Settimana 4</option>
+                        <option value="5">Settimana 5</option>
+                        <option value="6">Settimana 6</option>
+                        <option value="7">Settimana 7</option>
+                        <option value="8">Settimana 8</option>
+                        <option value="9">Settimana 9</option>
+                        <option value="10">Settimana 10</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Contenitore Catturabile per Esportazione PNG -->
+            <div id="leaderboardExportContainer" class="p-2 rounded-3xl space-y-6">
+                <!-- PODIO (Mostrato solo se ci sono almeno 1-3 classi) -->
+                <div id="podiumContainer" class="grid grid-cols-3 gap-2 sm:gap-4 items-end pt-6 pb-2">
+                    <!-- 2° Posto -->
+                    <div id="podiumSecond" class="glass-panel p-3 sm:p-4 rounded-2xl border border-slate-700 text-center space-y-2 order-1 transform hover:-translate-y-1 transition">
+                        <div class="text-2xl sm:text-3xl">🥈</div>
+                        <p class="font-heading font-black text-sm sm:text-lg text-slate-200 truncate" id="podium2Class">--</p>
+                        <span class="inline-block bg-slate-800 text-slate-300 text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-bold" id="podium2Points">0 PTS</span>
+                    </div>
+
+                    <!-- 1° Posto -->
+                    <div id="podiumFirst" class="glass-panel p-4 sm:p-6 rounded-2xl border-2 border-amber-400/80 text-center space-y-2 order-2 transform -translate-y-2 hover:-translate-y-3 transition glow-green">
+                        <div class="text-4xl sm:text-5xl animate-bounce">🏆</div>
+                        <p class="font-heading font-black text-base sm:text-xl text-amber-300 truncate" id="podium1Class">--</p>
+                        <span class="inline-block bg-amber-400 text-slate-950 text-xs sm:text-sm px-3 py-1 rounded-full font-black" id="podium1Points">0 PTS</span>
+                    </div>
+
+                    <!-- 3° Posto -->
+                    <div id="podiumThird" class="glass-panel p-3 sm:p-4 rounded-2xl border border-amber-700/60 text-center space-y-2 order-3 transform hover:-translate-y-1 transition">
+                        <div class="text-2xl sm:text-3xl">🥉</div>
+                        <p class="font-heading font-black text-sm sm:text-lg text-amber-600 truncate" id="podium3Class">--</p>
+                        <span class="inline-block bg-slate-800 text-slate-300 text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-bold" id="podium3Points">0 PTS</span>
+                    </div>
+                </div>
+
+                <!-- TABELLA COMPLETA CLASSI -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900/90 border-b border-slate-800 text-xs text-slate-400 uppercase tracking-wider">
+                                <th class="p-3 sm:p-4">Pos.</th>
+                                <th class="p-3 sm:p-4">Classe</th>
+                                <th class="p-3 sm:p-4">Ordine Scuola</th>
+                                <th class="p-3 sm:p-4 text-center">Punti Totali</th>
+                                <th class="p-3 sm:p-4 text-right">CO₂ Evitata</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardTbody" class="divide-y divide-slate-800 text-xs sm:text-sm">
+                            <!-- Righe generate dinamicamente -->
+                        </tbody>
+                    </table>
+
+                    <!-- Messaggio per Classifica Vuota -->
+                    <div id="emptyLeaderboardMessage" class="hidden p-10 text-center space-y-3">
+                        <i class="fa-solid fa-clipboard-list text-4xl text-slate-600"></i>
+                        <p class="text-slate-400 font-semibold">Nessuna classe ancora esaminata con i filtri attuali.</p>
+                        <button onclick="navigateTo('wizard')" class="text-xs text-emerald-400 font-bold underline">
+                            Inserisci subito la prima rilevazione!
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- VISTA 4: REGISTRO STORICO REPORT -->
+        <section id="viewRegistry" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="font-heading text-2xl font-black text-white">Registro Rilevazioni</h2>
+                    <p class="text-xs text-slate-400">Storico completo dei report inseriti nel sistema.</p>
+                </div>
+                <button onclick="confirmClearAllData()" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-xs font-bold border border-rose-500/30 px-3 py-2 rounded-xl transition">
+                    Cancella Tutto
+                </button>
+            </div>
+
+            <div id="registryList" class="space-y-3">
+                <!-- Lista report generata via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer con Tab Bar -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-3 px-4 sticky bottom-0 z-30">
+        <div class="max-w-md mx-auto flex items-center justify-around">
+            <button onclick="navigateTo('home')" id="navHome" class="flex flex-col items-center text-emerald-400 transition">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-[10px] font-bold mt-1">Home</span>
+            </button>
+            <button onclick="navigateTo('wizard')" id="navWizard" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
+                <i class="fa-solid fa-plus-circle text-lg"></i>
+                <span class="text-[10px] font-bold mt-1">Inserisci</span>
+            </button>
+            <button onclick="navigateTo('leaderboard')" id="navLeaderboard" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
+                <i class="fa-solid fa-trophy text-lg"></i>
+                <span class="text-[10px] font-bold mt-1">Classifica</span>
+            </button>
+            <button onclick="navigateTo('registry')" id="navRegistry" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
+                <i class="fa-solid fa-list-check text-lg"></i>
+                <span class="text-[10px] font-bold mt-1">Registro</span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- MODALE 1: REGOLAMENTO COMPLETO -->
+    <div id="rulesModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel border border-slate-700 rounded-3xl max-w-xl w-full p-6 space-y-5 max-h-[85vh] overflow-y-auto custom-scrollbar">
+            
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-heading text-xl font-black text-emerald-400 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i> Regolamento Torneo
+                </h3>
+                <button onclick="closeModal('rulesModal')" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <p>
+                    Il <strong>Torneo della Sostenibilità</strong> dell'I.C.S. "G. Falcone" di Volla premia l'impegno ecologico quotidiano delle classi.
+                </p>
+                <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-emerald-400 uppercase text-xs tracking-wider">Punteggi e Azioni</h4>
+                    <ul class="list-disc list-inside space-y-1 text-slate-300">
+                        <li><strong class="text-cyan-300">Borraccia Riutilizzabile:</strong> +10 punti per ciascun alunno presente che ne fa uso.</li>
+                        <li><strong class="text-emerald-300">Riciclo Carta:</strong> +2 punti per ciascun foglio recuperato o riutilizzato fronte-retro.</li>
+                        <li><strong class="text-amber-300">Aula Pulita e Ordinata:</strong> +50 punti fissi per corretto conferimento e pulizia.</li>
+                        <li><strong class="text-purple-300">Bonus Lezione Sostenibile:</strong> +30 punti per attività/lezione tematica svolta dal docente.</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+                    <h4 class="font-bold text-amber-400 uppercase text-xs tracking-wider mb-1">Premiazione</h4>
+                    <p class="text-xs text-slate-400">Le prime tre classi in classifica al termine del torneo riceveranno il titolo di <em>Classe Sostenibile Falcone 2026</em> e speciali eco-premi!</p>
+                </div>
+            </div>
+
+            <div class="pt-2 text-right">
+                <button onclick="closeModal('rulesModal')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2 rounded-xl text-xs">
+                    Ho Capito
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE 2: CERTIFICATO / ATTESTATO -->
+    <div id="certModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel border border-slate-700 rounded-3xl max-w-lg w-full p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-heading text-xl font-black text-amber-300 flex items-center gap-2">
+                    <i class="fa-solid fa-award"></i> Attestato di Sostenibilità
+                </h3>
+                <button onclick="closeModal('certModal')" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div id="certCardToExport" class="bg-gradient-to-br from-slate-900 via-emerald-950/60 to-slate-900 p-6 rounded-2xl border-2 border-emerald-400/50 text-center space-y-4 shadow-xl">
+                <div class="inline-block bg-emerald-500/20 text-emerald-300 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-500/30">
+                    I.C.S. G. Falcone - Volla
+                </div>
+                <h4 id="certClassName" class="font-heading text-3xl font-black text-white">Classe --</h4>
+                <p id="certSchoolType" class="text-xs text-slate-300 font-semibold">--</p>
+                
+                <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 my-3 space-y-2">
+                    <p class="text-xs text-slate-400 uppercase font-bold">Punteggio Ottenuto</p>
+                    <p id="certPoints" class="font-heading font-black text-4xl text-amber-400">0 PTS</p>
+                    <div class="flex justify-center gap-4 text-xs text-emerald-300 pt-2 border-t border-slate-800/80">
+                        <span>🌱 CO₂ Evitata: <strong id="certCo2" class="text-white">0 kg</strong></span>
+                        <span>🌳 Alberi eq.: <strong id="certTrees" class="text-white">0</strong></span>
+                    </div>
+                </div>
+
+                <p class="text-[11px] text-slate-400 italic">"Piccole azioni quotidiane per un grande futuro sostenibile."</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+                <button onclick="closeModal('certModal')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-slate-700">
+                    Chiudi
+                </button>
+                <button onclick="downloadCertImage()" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Scarica Certificato (PNG)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE 3: CONFERMA PERSONALIZZATA -->
+    <div id="customConfirmModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel border border-slate-700 rounded-3xl max-w-md w-full p-6 space-y-4">
+            <div class="flex items-center space-x-3 text-rose-400">
+                <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+                <h3 id="confirmTitle" class="font-heading text-lg font-black text-white">Conferma Azione</h3>
+            </div>
+            
+            <p id="confirmMessage" class="text-xs sm:text-sm text-slate-300 leading-relaxed">Sei sicuro di voler procedere?</p>
+
+            <div class="flex justify-end space-x-3 pt-3 border-t border-slate-800">
+                <button onclick="closeModal('customConfirmModal')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-xl border border-slate-700 transition">
+                    Annulla
+                </button>
+                <button id="btnConfirmAction" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow-lg">
+                    Conferma
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE 4: OPZIONI TEMA E COLORI -->
+    <div id="themeModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel border border-slate-700 rounded-3xl max-w-md w-full p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-heading text-xl font-black text-white flex items-center gap-2">
+                    <i class="fa-solid fa-palette text-indigo-400"></i> Colori dell'Interfaccia
+                </h3>
+                <button onclick="closeModal('themeModal')" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <p class="text-xs text-slate-300">Scegli la combinazione cromatica per personalizzare la grafica della tua app:</p>
+
+            <div class="grid grid-cols-1 gap-2.5" id="themeOptionsGrid">
+                <!-- Sezioni tema generate dinamicamente da JS -->
+            </div>
+
+            <div class="pt-2 text-right">
+                <button onclick="closeModal('themeModal')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2 rounded-xl text-xs">
+                    Salva e Chiudi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGICA E SCRIPT JAVASCRIPT -->
+    <script>
+        // STATUS DI STATO DELL'APPLICAZIONE
+        const STORAGE_KEY = 'torneo_sostenibilita_v2';
+        const THEME_KEY = 'torneo_sostenibilita_theme';
+
+        const AVAILABLE_THEMES = {
+            emerald: {
+                id: 'emerald',
+                name: '🌱 Smeraldo Eco',
+                desc: 'Toni classici verde natura e smeraldo',
+                bg: '#020617',
+                cardBg: 'rgba(15, 23, 42, 0.8)',
+                glow: 'rgba(34, 197, 94, 0.4)',
+                border: 'rgba(34, 197, 94, 0.3)',
+                accentPrimary: '#22c55e',
+                accentLight: '#4ade80',
+                accentText: '#86efac',
+                accentBadgeBg: 'rgba(34, 197, 94, 0.2)',
+                accentGradient: 'linear-gradient(135deg, #10b981, #059669)',
+                heroBg: 'linear-gradient(135deg, rgba(2, 6, 23, 0.95), rgba(6, 78, 59, 0.5), rgba(2, 6, 23, 0.95))',
+                headerBg: 'rgba(15, 23, 42, 0.95)',
+                gradient: 'from-emerald-500 to-teal-600'
+            },
+            ocean: {
+                id: 'ocean',
+                name: '🌊 Oceano Blu',
+                desc: 'Toni freschi cyan, azzurro e blu notte',
+                bg: '#030712',
+                cardBg: 'rgba(15, 23, 42, 0.85)',
+                glow: 'rgba(6, 182, 212, 0.4)',
+                border: 'rgba(6, 182, 212, 0.3)',
+                accentPrimary: '#06b6d4',
+                accentLight: '#38bdf8',
+                accentText: '#a5f3fc',
+                accentBadgeBg: 'rgba(6, 182, 212, 0.2)',
+                accentGradient: 'linear-gradient(135deg, #06b6d4, #2563eb)',
+                heroBg: 'linear-gradient(135deg, rgba(3, 7, 18, 0.95), rgba(12, 74, 110, 0.5), rgba(3, 7, 18, 0.95))',
+                headerBg: 'rgba(15, 23, 42, 0.95)',
+                gradient: 'from-cyan-500 to-blue-600'
+            },
+            sunset: {
+                id: 'sunset',
+                name: '🌅 Tramonto Eco',
+                desc: 'Caldi toni ambra, arancio e rosa',
+                bg: '#18080c',
+                cardBg: 'rgba(39, 16, 24, 0.85)',
+                glow: 'rgba(245, 158, 11, 0.4)',
+                border: 'rgba(245, 158, 11, 0.3)',
+                accentPrimary: '#f59e0b',
+                accentLight: '#fbbf24',
+                accentText: '#fde68a',
+                accentBadgeBg: 'rgba(245, 158, 11, 0.2)',
+                accentGradient: 'linear-gradient(135deg, #f59e0b, #e11d48)',
+                heroBg: 'linear-gradient(135deg, rgba(24, 8, 12, 0.95), rgba(120, 20, 40, 0.5), rgba(24, 8, 12, 0.95))',
+                headerBg: 'rgba(39, 16, 24, 0.95)',
+                gradient: 'from-amber-500 to-rose-600'
+            },
+            purple: {
+                id: 'purple',
+                name: '💜 Galassia Eco',
+                desc: 'Moderno stile viola e magenta brillante',
+                bg: '#0b0717',
+                cardBg: 'rgba(26, 18, 46, 0.85)',
+                glow: 'rgba(168, 85, 247, 0.4)',
+                border: 'rgba(168, 85, 247, 0.3)',
+                accentPrimary: '#a855f7',
+                accentLight: '#c084fc',
+                accentText: '#e9d5ff',
+                accentBadgeBg: 'rgba(168, 85, 247, 0.2)',
+                accentGradient: 'linear-gradient(135deg, #a855f7, #ec4899)',
+                heroBg: 'linear-gradient(135deg, rgba(11, 7, 23, 0.95), rgba(76, 29, 149, 0.5), rgba(11, 7, 23, 0.95))',
+                headerBg: 'rgba(26, 18, 46, 0.95)',
+                gradient: 'from-purple-500 to-pink-600'
+            },
+            forest: {
+                id: 'forest',
+                name: '🌲 Foresta Scura',
+                desc: 'Verde pino scuro e finiture lime',
+                bg: '#021207',
+                cardBg: 'rgba(12, 35, 20, 0.85)',
+                glow: 'rgba(16, 185, 129, 0.4)',
+                border: 'rgba(134, 239, 172, 0.3)',
+                accentPrimary: '#10b981',
+                accentLight: '#a3e635',
+                accentText: '#d9f99d',
+                accentBadgeBg: 'rgba(16, 185, 129, 0.2)',
+                accentGradient: 'linear-gradient(135deg, #059669, #65a30d)',
+                heroBg: 'linear-gradient(135deg, rgba(2, 18, 7, 0.95), rgba(20, 83, 45, 0.5), rgba(2, 18, 7, 0.95))',
+                headerBg: 'rgba(12, 35, 20, 0.95)',
+                gradient: 'from-emerald-600 to-lime-600'
+            }
+        };
+
+        let currentTheme = 'emerald';
+
+        let state = {
+            reports: [],
+            currentStep: 1,
+            selectedSchoolType: 'Primaria',
+            filters: {
+                scuola: 'ALL',
+                week: 'ALL'
+            },
+            audioCtx: null,
+            isMusicPlaying: false,
+            musicStyle: 'fun', // 'fun', 'adventure', 'relax'
+            musicTimer: null
+        };
+
+        // INIZIALIZZAZIONE ALL'AVVIO
+        window.onload = function() {
+            initTheme();
+            loadReportsFromStorage();
+            updateTodayDate();
+            updateCalculations();
+            renderLeaderboard();
+            renderRegistry();
+        };
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem(THEME_KEY);
+            if (savedTheme && AVAILABLE_THEMES[savedTheme]) {
+                currentTheme = savedTheme;
+            }
+            applyTheme(currentTheme);
+        }
+
+        function applyTheme(themeKey) {
+            const theme = AVAILABLE_THEMES[themeKey] || AVAILABLE_THEMES.emerald;
+            currentTheme = themeKey;
+            localStorage.setItem(THEME_KEY, themeKey);
+
+            const root = document.documentElement;
+            root.style.setProperty('--bg-main', theme.bg);
+            root.style.setProperty('--card-bg', theme.cardBg);
+            root.style.setProperty('--glow-color', theme.glow);
+            root.style.setProperty('--border-color', theme.border);
+            root.style.setProperty('--accent-primary', theme.accentPrimary);
+            root.style.setProperty('--accent-light', theme.accentLight);
+            root.style.setProperty('--accent-text', theme.accentText);
+            root.style.setProperty('--accent-badge-bg', theme.accentBadgeBg);
+            root.style.setProperty('--accent-gradient', theme.accentGradient);
+            root.style.setProperty('--hero-bg', theme.heroBg);
+            root.style.setProperty('--header-bg', theme.headerBg);
+
+            renderThemeOptions();
+        }
+
+        function renderThemeOptions() {
+            const grid = document.getElementById('themeOptionsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            Object.values(AVAILABLE_THEMES).forEach(theme => {
+                const isSelected = theme.id === currentTheme;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => {
+                    applyTheme(theme.id);
+                    playEffectSound('click');
+                };
+                btn.className = `w-full p-3 rounded-2xl border flex items-center justify-between transition-all ${
+                    isSelected 
+                        ? 'border-indigo-400 bg-slate-800/90 shadow-lg scale-[1.01]' 
+                        : 'border-slate-800 bg-slate-900/60 hover:bg-slate-800/50 text-slate-300'
+                }`;
+
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-xl bg-gradient-to-r ${theme.gradient} flex items-center justify-center shadow shrink-0">
+                            ${isSelected ? '<i class="fa-solid fa-check text-slate-950 font-black text-xs"></i>' : ''}
+                        </div>
+                        <div class="text-left">
+                            <p class="font-bold text-xs text-white">${theme.name}</p>
+                            <p class="text-[10px] text-slate-400">${theme.desc}</p>
+                        </div>
+                    </div>
+                    ${isSelected ? '<span class="text-[10px] bg-indigo-500/20 text-indigo-300 font-bold px-2 py-0.5 rounded-full border border-indigo-500/30">Attivo</span>' : ''}
+                `;
+                grid.appendChild(btn);
+            });
+        }
+
+        // GESTIONE DELLO STORAGE LOCALE
+        function loadReportsFromStorage() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    state.reports = JSON.parse(stored);
+                }
+            } catch(e) {
+                console.error("Errore lettura storage:", e);
+                state.reports = [];
+            }
+        }
+
+        function saveReportsToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state.reports));
+            } catch(e) {
+                console.error("Errore salvataggio storage:", e);
+            }
+        }
+
+        // NAVIGAZIONE VISTE
+        function navigateTo(viewName) {
+            document.getElementById('viewHome').classList.add('hidden');
+            document.getElementById('viewWizard').classList.add('hidden');
+            document.getElementById('viewLeaderboard').classList.add('hidden');
+            document.getElementById('viewRegistry').classList.add('hidden');
+
+            // Reset stile nav
+            ['navHome', 'navWizard', 'navLeaderboard', 'navRegistry'].forEach(id => {
+                document.getElementById(id).className = "flex flex-col items-center text-slate-400 hover:text-emerald-400 transition";
+            });
+
+            if (viewName === 'home') {
+                document.getElementById('viewHome').classList.remove('hidden');
+                document.getElementById('navHome').className = "flex flex-col items-center text-emerald-400 transition";
+            } else if (viewName === 'wizard') {
+                document.getElementById('viewWizard').classList.remove('hidden');
+                document.getElementById('navWizard').className = "flex flex-col items-center text-emerald-400 transition";
+            } else if (viewName === 'leaderboard') {
+                renderLeaderboard();
+                document.getElementById('viewLeaderboard').classList.remove('hidden');
+                document.getElementById('navLeaderboard').className = "flex flex-col items-center text-emerald-400 transition";
+            } else if (viewName === 'registry') {
+                renderRegistry();
+                document.getElementById('viewRegistry').classList.remove('hidden');
+                document.getElementById('navRegistry').className = "flex flex-col items-center text-emerald-400 transition";
+            }
+            playEffectSound('click');
+        }
+
+        // MODALS
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // SELEZIONE SCUOLA E PASSI WIZARD
+        function updateTodayDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reportData').value = today;
+        }
+
+        function selectSchoolType(type) {
+            state.selectedSchoolType = type;
+            const btnP = document.getElementById('btnPrimaria');
+            const btnS = document.getElementById('btnSec');
+            const opt4 = document.getElementById('optAnno4');
+            const opt5 = document.getElementById('optAnno5');
+
+            if (type === 'Primaria') {
+                btnP.className = "p-3 rounded-xl border theme-accent-border theme-badge font-bold text-xs sm:text-sm text-center";
+                btnS.className = "p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs sm:text-sm text-center";
+                opt4.hidden = false;
+                opt4.disabled = false;
+                opt5.hidden = false;
+                opt5.disabled = false;
+            } else {
+                btnS.className = "p-3 rounded-xl border theme-accent-border theme-badge font-bold text-xs sm:text-sm text-center";
+                btnP.className = "p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs sm:text-sm text-center";
+                opt4.hidden = true;
+                opt4.disabled = true;
+                opt5.hidden = true;
+                opt5.disabled = true;
+                if (parseInt(document.getElementById('reportAnno').value) > 3) {
+                    document.getElementById('reportAnno').value = "1";
+                }
+            }
+        }
+
+        function goToStep(stepNum) {
+            state.currentStep = stepNum;
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+
+            document.getElementById(`step${stepNum}`).classList.remove('hidden');
+
+            // Aggiorna indicatori
+            for (let i = 1; i <= 3; i++) {
+                const ind = document.getElementById(`stepIndicator${i}`);
+                if (i === stepNum) {
+                    ind.className = "flex-1 text-center py-1 text-xs font-bold theme-accent-text border-b-2 theme-accent-border";
+                } else if (i < stepNum) {
+                    ind.className = "flex-1 text-center py-1 text-xs font-bold text-slate-400 border-b-2 border-slate-700";
+                } else {
+                    ind.className = "flex-1 text-center py-1 text-xs font-bold text-slate-500 border-b-2 border-slate-800";
+                }
+            }
+            playEffectSound('click');
+        }
+
+        // CALCOLO PUNTI E IMPATTO AMBIENTALE IN TEMPO REALE
+        function updateCalculations() {
+            const alunni = parseInt(document.getElementById('reportAlunni').value) || 1;
+            
+            // max borracce = alunni
+            const borracceEl = document.getElementById('reportBorracce');
+            borracceEl.max = alunni;
+            if (parseInt(borracceEl.value) > alunni) borracceEl.value = alunni;
+            
+            const borracce = parseInt(borracceEl.value) || 0;
+            const fogli = parseInt(document.getElementById('reportFogli').value) || 0;
+            const pulizia = document.getElementById('reportPulizia').checked;
+            const bonusDocente = document.getElementById('reportBonusDocente').checked;
+
+            document.getElementById('valBorracceText').innerText = `${borracce} / ${alunni}`;
+            document.getElementById('valFogliText').innerText = `${fogli} fogli`;
+
+            // Formula Punti:
+            // Borracce * 10
+            // Fogli * 2
+            // Pulizia = +50
+            // Bonus Docente = +30
+            const puntiBorracce = borracce * 10;
+            const puntiFogli = fogli * 2;
+            const puntiPulizia = pulizia ? 50 : 0;
+            const puntiBonus = bonusDocente ? 30 : 0;
+
+            const totalPoints = puntiBorracce + puntiFogli + puntiPulizia + puntiBonus;
+
+            // Formula CO2 e Alberi:
+            // Ogni borraccia usata evita ~0.08 kg di CO2 (bottiglia plastica)
+            // Ogni foglio salvato evita ~0.015 kg CO2
+            // Pulizia/Bonus = +0.2 kg CO2 equivalenti
+            const co2Saved = (borracce * 0.08) + (fogli * 0.015) + (pulizia ? 0.2 : 0);
+            const treesSaved = co2Saved * 0.05; // 20kg CO2 = 1 albero
+
+            document.getElementById('liveScoreTotal').innerText = `${totalPoints} PTS`;
+            document.getElementById('liveCo2').innerText = `${co2Saved.toFixed(1)} kg`;
+            document.getElementById('liveAlberi').innerText = `${treesSaved.toFixed(2)}`;
+
+            return { totalPoints, co2Saved, treesSaved };
+        }
+
+        // INVIO FORM REPORT
+        function handleWizardSubmit(e) {
+            e.preventDefault();
+            const calc = updateCalculations();
+
+            const report = {
+                id: Date.now().toString(),
+                settimana: document.getElementById('reportSettimana').value,
+                data: document.getElementById('reportData').value,
+                scuola: state.selectedSchoolType,
+                anno: document.getElementById('reportAnno').value,
+                sezione: document.getElementById('reportSezione').value,
+                alunni: parseInt(document.getElementById('reportAlunni').value),
+                borracce: parseInt(document.getElementById('reportBorracce').value),
+                fogli: parseInt(document.getElementById('reportFogli').value),
+                pulizia: document.getElementById('reportPulizia').checked,
+                bonusDocente: document.getElementById('reportBonusDocente').checked,
+                punti: calc.totalPoints,
+                co2: calc.co2Saved,
+                alberi: calc.treesSaved
+            };
+
+            state.reports.push(report);
+            saveReportsToStorage();
+
+            playEffectSound('victory');
+            try {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } catch(e) {}
+
+            // Mostra certificato
+            showCertificateModal(report);
+
+            // Reset form ed eventuali valori predefiniti
+            document.getElementById('reportBorracce').value = 15;
+            document.getElementById('reportFogli').value = 10;
+            document.getElementById('reportPulizia').checked = true;
+            document.getElementById('reportBonusDocente').checked = false;
+            updateCalculations();
+
+            // Reset vista su step 1
+            goToStep(1);
+        }
+
+        function showCertificateModal(rep) {
+            document.getElementById('certClassName').innerText = `Classe ${rep.anno}ª ${rep.sezione}`;
+            document.getElementById('certSchoolType').innerText = `${rep.scuola} - Settimana ${rep.settimana}`;
+            document.getElementById('certPoints').innerText = `${rep.punti} PTS`;
+            document.getElementById('certCo2').innerText = `${rep.co2.toFixed(1)} kg`;
+            document.getElementById('certTrees').innerText = `${rep.alberi.toFixed(2)}`;
+            openModal('certModal');
+        }
+
+        // RENDERING CLASSIFICA (Solo classi con report > 0)
+        function setLeaderboardFilter(type, value) {
+            if (type === 'scuola') {
+                state.filters.scuola = value;
+                document.getElementById('filterAllScuola').className = value === 'ALL' ? 'px-3 py-1.5 text-xs rounded-lg font-bold theme-accent-bg text-slate-950' : 'px-3 py-1.5 text-xs rounded-lg font-bold bg-slate-800 text-slate-300';
+                document.getElementById('filterPrimaria').className = value === 'Primaria' ? 'px-3 py-1.5 text-xs rounded-lg font-bold theme-accent-bg text-slate-950' : 'px-3 py-1.5 text-xs rounded-lg font-bold bg-slate-800 text-slate-300';
+                document.getElementById('filterSec').className = value === 'Sec. 1° Grado' ? 'px-3 py-1.5 text-xs rounded-lg font-bold theme-accent-bg text-slate-950' : 'px-3 py-1.5 text-xs rounded-lg font-bold bg-slate-800 text-slate-300';
+            } else if (type === 'week') {
+                state.filters.week = value;
+            }
+            renderLeaderboard();
+        }
+
+        function renderLeaderboard() {
+            // Aggrega dati per classe
+            const classMap = {};
+            let globalCo2 = 0;
+            let globalTrees = 0;
+            let filteredReportsCount = 0;
+
+            state.reports.forEach(r => {
+                // Filtri
+                if (state.filters.scuola !== 'ALL' && r.scuola !== state.filters.scuola) return;
+                if (state.filters.week !== 'ALL' && r.settimana.toString() !== state.filters.week.toString()) return;
+
+                filteredReportsCount++;
+                globalCo2 += r.co2;
+                globalTrees += r.alberi;
+
+                const classKey = `${r.scuola}_${r.anno}_${r.sezione}`;
+                if (!classMap[classKey]) {
+                    classMap[classKey] = {
+                        className: `${r.anno}ª ${r.sezione}`,
+                        scuola: r.scuola,
+                        totalPoints: 0,
+                        totalCo2: 0,
+                        reportsCount: 0
+                    };
+                }
+                classMap[classKey].totalPoints += r.punti;
+                classMap[classKey].totalCo2 += r.co2;
+                classMap[classKey].reportsCount += 1;
+            });
+
+            // Aggiorna Banner scuola
+            document.getElementById('totalCo2School').innerText = `${globalCo2.toFixed(1)} kg`;
+            document.getElementById('totalTreesSchool').innerText = `${globalTrees.toFixed(1)}`;
+            document.getElementById('totalReportsCount').innerText = filteredReportsCount;
+
+            // Converti in array e ordina
+            const sortedClasses = Object.values(classMap)
+                .filter(c => c.reportsCount > 0) // SOLO CLASSI ESAMINATE
+                .sort((a, b) => b.totalPoints - a.totalPoints);
+
+            const tbody = document.getElementById('leaderboardTbody');
+            tbody.innerHTML = '';
+
+            const emptyMsg = document.getElementById('emptyLeaderboardMessage');
+            const podium = document.getElementById('podiumContainer');
+
+            if (sortedClasses.length === 0) {
+                emptyMsg.classList.remove('hidden');
+                podium.classList.add('hidden');
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+            podium.classList.remove('hidden');
+
+            // Aggiorna Podio
+            // 1° posto
+            if (sortedClasses[0]) {
+                document.getElementById('podium1Class').innerText = `${sortedClasses[0].className} (${sortedClasses[0].scuola.substring(0,4)}.)`;
+                document.getElementById('podium1Points').innerText = `${sortedClasses[0].totalPoints} PTS`;
+                document.getElementById('podiumFirst').style.opacity = '1';
+            } else {
+                document.getElementById('podium1Class').innerText = '--';
+                document.getElementById('podium1Points').innerText = '0 PTS';
+            }
+
+            // 2° posto
+            if (sortedClasses[1]) {
+                document.getElementById('podium2Class').innerText = `${sortedClasses[1].className}`;
+                document.getElementById('podium2Points').innerText = `${sortedClasses[1].totalPoints} PTS`;
+                document.getElementById('podiumSecond').style.opacity = '1';
+            } else {
+                document.getElementById('podium2Class').innerText = '--';
+                document.getElementById('podium2Points').innerText = '0 PTS';
+                document.getElementById('podiumSecond').style.opacity = '0.4';
+            }
+
+            // 3° posto
+            if (sortedClasses[2]) {
+                document.getElementById('podium3Class').innerText = `${sortedClasses[2].className}`;
+                document.getElementById('podium3Points').innerText = `${sortedClasses[2].totalPoints} PTS`;
+                document.getElementById('podiumThird').style.opacity = '1';
+            } else {
+                document.getElementById('podium3Class').innerText = '--';
+                document.getElementById('podium3Points').innerText = '0 PTS';
+                document.getElementById('podiumThird').style.opacity = '0.4';
+            }
+
+            // Popola Righe Tabella
+            sortedClasses.forEach((cls, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-800/50 transition border-b border-slate-800/60";
+
+                let badgeRank = `<span class="font-bold text-slate-400">#${idx + 1}</span>`;
+                if (idx === 0) badgeRank = `<span class="text-amber-400 font-bold">🥇 1°</span>`;
+                else if (idx === 1) badgeRank = `<span class="text-slate-300 font-bold">🥈 2°</span>`;
+                else if (idx === 2) badgeRank = `<span class="text-amber-600 font-bold">🥉 3°</span>`;
+
+                tr.innerHTML = `
+                    <td class="p-3 sm:p-4">${badgeRank}</td>
+                    <td class="p-3 sm:p-4 font-bold text-white">${cls.className}</td>
+                    <td class="p-3 sm:p-4 text-slate-300 text-xs">${cls.scuola}</td>
+                    <td class="p-3 sm:p-4 text-center font-heading font-black theme-accent-text">${cls.totalPoints}</td>
+                    <td class="p-3 sm:p-4 text-right text-slate-300">${cls.totalCo2.toFixed(1)} kg</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // RENDERING REGISTRO
+        function renderRegistry() {
+            const list = document.getElementById('registryList');
+            list.innerHTML = '';
+
+            if (state.reports.length === 0) {
+                list.innerHTML = `
+                    <div class="glass-panel p-8 text-center text-slate-400 text-xs rounded-2xl">
+                        Nessun report presente in memoria.
+                    </div>
+                `;
+                return;
+            }
+
+            state.reports.slice().reverse().forEach(rep => {
+                const item = document.createElement('div');
+                item.className = "glass-panel p-4 rounded-2xl border border-slate-800 flex items-center justify-between text-xs sm:text-sm";
+                item.innerHTML = `
+                    <div class="space-y-1">
+                        <p class="font-bold text-white">Classe ${rep.anno}ª ${rep.sezione} (${rep.scuola})</p>
+                        <p class="text-[11px] text-slate-400">Settimana ${rep.settimana} • ${rep.data}</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="font-heading font-black text-emerald-400 text-base">${rep.punti} PTS</span>
+                        <button onclick="confirmDeleteReport('${rep.id}')" class="text-rose-400 hover:text-rose-300 p-1.5 rounded-lg bg-rose-500/10 border border-rose-500/20">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // MODALE DI CONFERMA CUSTOM (SOSTITUISCE CONFIRM NATIVO)
+        function showCustomConfirm(title, message, onConfirm) {
+            document.getElementById('confirmTitle').innerText = title;
+            document.getElementById('confirmMessage').innerText = message;
+            
+            const btnAction = document.getElementById('btnConfirmAction');
+            btnAction.onclick = function() {
+                onConfirm();
+                closeModal('customConfirmModal');
+            };
+            openModal('customConfirmModal');
+        }
+
+        function confirmClearAllData() {
+            showCustomConfirm('Cancellare tutto lo storico?', 'Tutte le rilevazioni verranno rimosse definitivamente.', function() {
+                state.reports = [];
+                saveReportsToStorage();
+                renderRegistry();
+                renderLeaderboard();
+            });
+        }
+
+        function confirmDeleteReport(id) {
+            showCustomConfirm('Eliminare questa rilevazione?', 'Il punteggio della classe verrà ricalcolato.', function() {
+                state.reports = state.reports.filter(r => r.id !== id);
+                saveReportsToStorage();
+                renderRegistry();
+                renderLeaderboard();
+            });
+        }
+
+        // DOWNLOAD IMMAGINI CON HTML2CANVAS
+        function downloadCertImage() {
+            const certNode = document.getElementById('certCardToExport');
+            html2canvas(certNode, { backgroundColor: '#020617', scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Certificato_Sostenibilita_${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        function downloadLeaderboardImage() {
+            const node = document.getElementById('leaderboardExportContainer');
+            html2canvas(node, { backgroundColor: '#020617', scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Classifica_Torneo_Sostenibilita_FalconeVolla.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // SINTETIZZATORE AUDIO WEB AUDIO API (SENZA FILE AUDIO ESTERNI)
+        function getAudioContext() {
+            if (!state.audioCtx) {
+                state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (state.audioCtx.state === 'suspended') {
+                state.audioCtx.resume();
+            }
+            return state.audioCtx;
+        }
+
+        function playEffectSound(type) {
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(440, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.05);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.05);
+                } else if (type === 'victory') {
+                    const now = ctx.currentTime;
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                    osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                    osc.start(now);
+                    osc.stop(now + 0.6);
+                }
+            } catch(e) {}
+        }
+
+        // MUSICA DI SOTTOFONDO PROCEDURALE
+        function toggleBgMusic() {
+            const icon = document.getElementById('musicIcon');
+            if (state.isMusicPlaying) {
+                stopBgMusic();
+                icon.className = "fa-solid fa-music text-sm";
+            } else {
+                state.isMusicPlaying = true;
+                icon.className = "fa-solid fa-volume-high text-sm animate-pulse";
+                startBgMusicLoop();
+            }
+        }
+
+        function changeMusicStyle(val) {
+            state.musicStyle = val;
+            if (state.isMusicPlaying) {
+                stopBgMusic();
+                state.isMusicPlaying = true;
+                startBgMusicLoop();
+            }
+        }
+
+        function stopBgMusic() {
+            state.isMusicPlaying = false;
+            if (state.musicTimer) {
+                clearInterval(state.musicTimer);
+                state.musicTimer = null;
+            }
+        }
+
+        function startBgMusicLoop() {
+            const ctx = getAudioContext();
+            let noteIdx = 0;
+
+            // Frequenze per le note dei 3 stili
+            const scales = {
+                fun: [261.63, 329.63, 392.00, 523.25, 440.00, 392.00], // C, E, G, C6, A, G
+                adventure: [220.00, 261.63, 293.66, 329.63, 349.23, 392.00], // A minor scale
+                relax: [293.66, 329.63, 440.00, 493.88, 587.33] // Pentatonica dolce
+            };
+
+            const intervalMs = state.musicStyle === 'fun' ? 250 : (state.musicStyle === 'adventure' ? 200 : 500);
+
+            state.musicTimer = setInterval(() => {
+                if (!state.isMusicPlaying) return;
+                try {
+                    const currentScale = scales[state.musicStyle] || scales.fun;
+                    const freq = currentScale[noteIdx % currentScale.length];
+                    noteIdx++;
+
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.type = state.musicStyle === 'fun' ? 'triangle' : (state.musicStyle === 'adventure' ? 'sawtooth' : 'sine');
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+                    gain.gain.setValueAtTime(0.03, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (intervalMs / 1000));
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start();
+                    osc.stop(ctx.currentTime + (intervalMs / 1000));
+                } catch(e) {}
+            }, intervalMs);
+        }
+    </script>
+</body>
+</html>
